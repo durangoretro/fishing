@@ -23,7 +23,7 @@ $(BUILD_DIR)/main.o: $(BUILD_DIR)/main.casm $(BUILD_DIR)
 	ca65 -t none $(BUILD_DIR)/main.casm -o $(BUILD_DIR)/main.o
 
 $(BUILD_DIR)/fishing.bin: $(BUILD_DIR) $(BUILD_DIR)/main.o
-	ld65 -m $(BUILD_DIR)/fishing.txt -C $(CFG) $(BUILD_DIR)/main.o $(DCLIB)/glyph.lib $(DCLIB)/qgraph.lib $(DCLIB)/sprites.lib $(DCLIB)/durango.lib $(DCLIB)/system.lib $(DCLIB)/psv.lib -o $(BUILD_DIR)/fishing.bin	
+	ld65 -m $(BUILD_DIR)/fishing.txt -C $(CFG) $(BUILD_DIR)/main.o $(DCLIB)/glyph.lib $(DCLIB)/qgraph.lib $(DCLIB)/sprites.lib $(DCLIB)/system.lib $(DCLIB)/durango.lib $(DCLIB)/psv.lib -o $(BUILD_DIR)/fishing.bin	
 
 fishing.dux: $(BUILD_DIR)/fishing.bin $(BUILD_DIR)
 	java -jar ${RESCOMP} -m SIGNER -n $$(git log -1 | head -1 | sed 's/commit //' | cut -c1-8) -t fishing -d "Pesca todos los peces que puedas. ¡Ojo al color del cebo!" -i $(BUILD_DIR)/fishing.bin -o fishing.dux
